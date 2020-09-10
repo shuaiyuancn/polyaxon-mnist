@@ -1,0 +1,21 @@
+version: 1.1
+kind: component
+tags: [examples, tensorflow]
+
+inputs:
+- { name: dropout, type: float, isOptional: true, value: 0.2}
+- { name: optimizer, type: str, isOptional: true, value: 'adam'}
+- { name: epochs, type: int, isOptional: true, value: 1}
+
+run:
+  kind: job
+  init:
+  - git: {"url": "https://github.com/shuaiyuancn/polyaxon-mnist"}
+  container:
+    image: ghcr.io/shuaiyuancn/polyaxon-mnist
+    command: ["python", "model.py"]
+    args: [
+      "--dropout={{ dropout }}",
+      "--optimizer={{ optimizer }}",
+      "--epochs={{ epochs }}",
+  ]
