@@ -17,14 +17,14 @@ if __name__ == "__main__":
     # Polyaxon
     experiment = Run()
 
+    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    x_train, x_test = x_train / 255.0, x_test / 255.0
+
     # Polyaxon
     experiment.log_data_ref(content=x_train, name="x_train")
     experiment.log_data_ref(content=y_train, name="y_train")
     experiment.log_data_ref(content=x_test, name="x_test")
     experiment.log_data_ref(content=y_test, name="y_test")
-
-    (x_train, y_train), (x_test, y_test) = mnist.load_data()
-    x_train, x_test = x_train / 255.0, x_test / 255.0
 
     model = tf.keras.models.Sequential(
         [
@@ -46,5 +46,4 @@ if __name__ == "__main__":
     loss, acc = model.evaluate(x_test, y_test, verbose=2)
 
     # Polyaxon
-    experiment.log_metrics(loss=loss)
-    experiment.log_metrics(accuracy=acc)
+    experiment.log_metrics(loss=loss, accuracy=acc)
