@@ -1,0 +1,11 @@
+redis:
+    enabled: true
+broker: redis
+
+scheduler:
+    enabled: true
+operator:
+    enabled: true
+streams:
+    enabled: true
+
